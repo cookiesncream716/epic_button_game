@@ -1,0 +1,10 @@
+{
+  "name": "epic_button_game",
+  "description": "count how many times button has been pushed and can restart at 0",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
+  }
+}

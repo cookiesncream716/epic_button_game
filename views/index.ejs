@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Epic Button Game</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    	<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    	<style>
+    		#epic{
+    			background-color: blue;
+    			color: white;
+    			width: 200px;
+    			height: 60px;
+    			font-size: 1em;
+    		}
+    		#reset{
+    			background-color: red;
+    			color: white;
+    		}
+    	</style>
+    	<script type="text/javascript">
+    		$(document).ready(function(){
+    			var socket = io.connect();
+    			socket.on("new_user", function(data){
+    				$("#count_response").html(data.new);
+    			});
+    			$("#epic").click(function(e){
+    				e.preventDefault();
+    				socket.emit("epic_clicked");
+    			});
+    			socket.on("epic_response", function(data){
+    				console.log(data.response);
+    				$("#count_response").html(data.response);
+    			})
+    			$("#reset").click(function(){
+    				socket.emit("reset_clicked");
+    			});
+    			socket.on("reset_response", function(data){
+    				console.log(data.reset);
+    				$("#count_response").text(data.reset);
+    			});
+    		})
+    	</script>
+    </head>
+    <body>
+    	<h1>Epic Button Game</h1>
+    	<h4>Push the button to update the count!</h4>
+    	<button id="epic">Push the epic button</button>
+    	<button id="reset">Reset Count</button>
+    	<h3 id="count_response"></h3>
+    </body>
+</html>
